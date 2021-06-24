@@ -1,0 +1,59 @@
+[[AdvancedFormat]]
+
+[[Block:Registration Contact Information]]
+
+[[Question:DB]]
+Thank you for your participation in the Beyond Cancer event.
+
+[[Question:TE:Form]]
+Please fill out the following information:
+[[Choices]]
+Email address
+US ZIP Code
+
+[[PageBreak]]
+
+[[Block:Satisfaction]]
+
+[[Question:DB]]
+The following questions intend to measure your satisfaction with the Beyond Cancer event.
+
+[[Question:Matrix]]
+How much do you agree with the following statements:
+
+[[Choices]]
+The event met or exceeded my expectations:
+Information was presented in a culturally appropriate manner:
+I have learned something from the event that I have acted on or will act on:
+I would register for another Beyond Cancer event:
+
+[[Answers]]
+Strongly disagree
+Disagree
+Neutral
+Agree
+Strongly agree
+
+[[PageBreak]]
+
+[[Block:Qualitative Actionable Description]]
+
+[[Question:DB]]
+These questions are intended to find out what exactly about the Beyond Cancer event was useful to you:
+
+[[Question:TE:SingleLine]]
+What information was presented at Beyond Cancer that resonated with you?
+
+[[Question:TE:SingleLine]]
+What resources have you utilized due to your experience with Beyond Cancer?
+
+[[Question:MC]]
+If you are a cancer patient or survivor do you intend to request a treatment summary or survivorship care plan from your physician or provider?
+[[Choices]]
+Yes, I intend to request a plan
+No
+Maybe
+This question does not apply to me
+
+[[Question:TE:SingleLine]]
+What changes might you suggest to make Beyond Cancer more culturally appropriate?

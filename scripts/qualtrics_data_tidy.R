@@ -2,19 +2,20 @@
 # Beyond Cancer Event Registration
 # and Survey 
 
-# set up
+# set up #### 
 # load package libraries 
 library(here)
 library(tidyverse)
-library(ggthemes)
+# library(ggthemes)
 library(qualtRics)
 library(zipcodeR)
 library(sf)
 library(tigris)
 library(geojson)
-library(knitr)
+# library(knitr)
 library(lubridate)
-library(zipcodeR)
+# library(zipcodeR)
+library(janitor)
 
 options(tigris_use_cache = TRUE)
 
@@ -24,6 +25,7 @@ az_counties <- counties(state = 04)
 # get az zip code spatial data 
 zip_db <- zip_code_db
 
+# qualtrics ####
 # collect data from qualtrics for survey
 # load list of surveys
 surveys <- all_surveys()
@@ -31,8 +33,81 @@ surveys <- all_surveys()
 surveys
 
 # select zoom registration survey & inspect
-beyond_1_reg <- fetch_survey(surveys$id[3])
+# Beyond Cancer 26 April 2021 Mindy Griffith Registration ####
+beyond_1_reg <- fetch_survey(surveys$id[1]) %>%
+  clean_names()
+
+# inspect
 glimpse(beyond_1_reg)
+
+# new variables to identify and
+# select
+beyond_1_reg <- beyond_1_reg %>%
+  mutate(event = "Beyond 1",
+         type = "Registration") %>%
+  select(response_id,
+         event,
+         type,
+         recorded_date,
+         location_latitude,
+         location_longitude,
+         distribution_channel,
+         email = q1_2,
+         zip_code = q1_3)
+
+# all lowercase email address 
+beyond_1_reg$email <- str_to_lower(beyond_1_reg$email)
+
+# extract email domain 
+beyond_1_reg <- beyond_1_reg %>%
+  mutate(email_domain = str_extract(email, "@.+"),
+         zip_code = as.character(zip_code)) # zip code to character 
+
+# Beyond Cancer 26 April 2021 Mindy Griffith Pre-Event Survey ####
+beyond_1_pre_survey <- fetch_survey(surveys$id[6]) %>%
+  clean_names()
+
+# inspect
+glimpse(beyond_1_pre_survey)
+
+# new variables to identify and
+# select
+# beyond_1_pre_survey <- 
+beyond_1_pre_survey %>%
+  mutate(event = "Beyond 1",
+         type = "pre_survey") %>%
+  select(response_id,
+         event,
+         type,
+         recorded_date,
+         location_latitude,
+         location_longitude,
+         distribution_channel,
+         email = q24,
+         = q3_2_1,
+         )
+
+# all lowercase email address 
+beyond_1_pre_survey$email <- str_to_lower(beyond_1_pre_survey$email)
+
+# extract email domain 
+beyond_1_pre_survey <- beyond_1_pre_survey %>%
+  mutate(email_domain = str_extract(email, "@.+"),
+         zip_code = as.character(zip_code)) # zip code to character 
+
+# Beyond Cancer 17 June 2021 Positive Psychology Registration and Survey
+beyond_2_reg <- fetch_survey(surveys$id[10]) %>%
+  clean_names()
+
+# Beyond Cancer 17 June 2021 Positive Psychology Evaluation
+beyond_2_eval <- fetch_survey(surveys$id[9]) %>%
+  clean_names()
+
+
+glimpse(beyond_1_reg)
+glimpse(beyond_2_reg)
+
+
 
 beyond_1_reg <- beyond_1_reg %>%
   select(8,9,14,15,19,20)

@@ -22,6 +22,8 @@ options(tigris_use_cache = TRUE)
 # get az county spatial data
 az_counties <- counties(state = 04)
 
+write_rds(az_counties, "data/spatial/az_counties.rds")
+
 # get az zip code spatial data 
 zip_db <- zip_code_db
 
@@ -63,6 +65,8 @@ beyond_1_reg <- beyond_1_reg %>%
   mutate(email_domain = str_extract(email, "@.+"),
          zip_code = as.character(zip_code)) # zip code to character 
 
+write_rds(beyond_1_reg, "data/tidy/beyond_1_reg.rds")
+
 # Beyond Cancer 26 April 2021 Mindy Griffith Pre-Event Survey ####
 beyond_1_pre_survey <- fetch_survey(surveys$id[6]) %>%
   clean_names()
@@ -72,8 +76,7 @@ glimpse(beyond_1_pre_survey)
 
 # new variables to identify and
 # select
-# beyond_1_pre_survey <- 
-beyond_1_pre_survey %>%
+beyond_1_pre_survey <- beyond_1_pre_survey %>%
   mutate(event = "Beyond 1",
          type = "pre_survey") %>%
   select(response_id,
@@ -84,7 +87,50 @@ beyond_1_pre_survey %>%
          location_longitude,
          distribution_channel,
          email = q24,
-         = q3_2_1,
+         "impact_survivor" = q3_2_1,
+         "impact_friend" = q3_2_2,
+         "impact_family" = q3_2_3,
+         "impact_recent cancer diagnosis" = q3_2_4,
+         "impact_caregiver" = q3_2_5,
+         "impact_professional" = q3_2_6,
+         cancer_impact = q3_2_7,
+         cancer_impact_text = q3_2_7_text,
+         "needs_topics_Caregiver well-being" = q3_3_1,
+         "needs_topics_Positive psychology" = q3_3_2,
+         "needs_topics_financial hardships" = q3_3_3,
+         "needs_topics_Active lifestyle and healthy diet" = q3_3_4,
+         "needs_topics_Self-advocacy" = q3_3_5,
+         "needs_topics_Support and community" = q3_3_6,
+         "needs_topics_Survivorship care plans" = q3_3_8 ,
+         needs_topics = q3_3_7,
+         needs_topics_text = q3_3_7_text,
+         event_expectations = q3_4,
+         joined_support_group = q5_2,
+         support_group_name = q5_3,
+         support_group_found = q5_4,
+         survivor_resources = q4_6 ,
+         "Breast (female)" = q4_2_1,
+         prostate = q4_2_2,
+         "lung and bronchus" = q4_2_3,
+         colorectum = q4_2_4,
+         "melanoma of the skin" = q4_2_5,
+         "urinary bladder" = q4_2_6,
+         pancreas = q4_2_7,
+         "liver and intrahepatic bile duct" = q4_2_8,
+         "no cancer diagnosis" = q4_2_9,
+         "other cancer diagnosis" = q4_2_10,
+         "other cancer diagnosis text" = q4_2_10_text,
+         "diagnosis date" = q4_3,
+         "cancer_survivorship_prevention" = q4_4_1,
+         "cancer_survivorship_detection and screening" = q4_4_2,
+         "cancer_survivorship_recent diagnosis" = q4_4_3,
+         "cancer_survivorship_treatment" = q4_4_4,
+         "cancer_survivorship_survivorship" = q4_4_5,
+         "cancer_survivorship_self advocacy" = q4_4_6,
+         "cancer_survivorship_other" = q4_4_7,
+         "cancer_survivorship_other_text" = q4_4_7_text,
+         "survivorship care plan" = q4_5,
+         "email" = q24
          )
 
 # all lowercase email address 
@@ -92,34 +138,189 @@ beyond_1_pre_survey$email <- str_to_lower(beyond_1_pre_survey$email)
 
 # extract email domain 
 beyond_1_pre_survey <- beyond_1_pre_survey %>%
-  mutate(email_domain = str_extract(email, "@.+"),
-         zip_code = as.character(zip_code)) # zip code to character 
+  mutate(email_domain = str_extract(email, "@.+"))
 
-# Beyond Cancer 17 June 2021 Positive Psychology Registration and Survey
+write_rds(beyond_1_pre_survey, "data/tidy/beyond_1_pre_survey.rds")
+
+# Beyond Cancer 17 June 2021 Positive Psychology Registration and Survey ####
 beyond_2_reg <- fetch_survey(surveys$id[10]) %>%
   clean_names()
 
-# Beyond Cancer 17 June 2021 Positive Psychology Evaluation
+# inspect
+glimpse(beyond_2_reg)
+
+# new variables to identify and
+# select
+beyond_2_reg <- beyond_2_reg %>%
+  mutate(event = "Beyond 2",
+         type = "Registration") %>%
+  select(response_id,
+         event,
+         type,
+         recorded_date,
+         location_latitude,
+         location_longitude,
+         distribution_channel,
+         email = q1_3_3,
+         zip_code = q1_3_4,
+         survey_participation = q2_2,
+         preferred_language = q3_1,
+         preferred_language_text = q3_1_3_text,
+         "impact_Cancer patient" = q3_2_1,
+         "impact_survivor" = q3_2_2,
+         "impact_Navigator" = q3_2_3,
+         "impact_Physician Provider" = q3_2_4,
+         "impact_Nurse" = q3_2_5,
+         "impact_Researcher" = q3_2_6,
+         "impact_Family Caretaker" = q3_2_7,
+         cancer_impact = q3_2_8,
+         cancer_impact_text = q3_2_8_text,
+         most_valuable_resource = q3_3,
+         "cancer_survivorship_prevention" = q4_1_1,
+         "cancer_survivorship_detection and screening" = q4_1_2,
+         "cancer_survivorship_recent diagnosis" = q4_1_3,
+         "cancer_survivorship_treatment" = q4_1_4,
+         "cancer_survivorship_survivorship" = q4_1_5,
+         "cancer_survivorship_self advocacy" = q4_1_6,
+         "cancer_survivorship_other" = q4_1_7,
+         "cancer_survivorship_other_text" = q4_1_7_text,
+         "cancer_survivorship_does not apply" = q4_1_8,
+         "mental health treatment" = q4_2,
+         "mental health intent" = q4_3
+         )
+
+# all lowercase email address 
+beyond_2_reg$email <- str_to_lower(beyond_2_reg$email)
+
+# extract email domain 
+beyond_2_reg <- beyond_2_reg %>%
+  mutate(email_domain = str_extract(email, "@.+"),
+         zip_code = as.character(zip_code)) # zip code to character 
+
+write_rds(beyond_2_reg, "data/tidy/beyond_2_reg.rds")
+
+# Beyond Cancer 17 June 2021 Positive Psychology Evaluation ####
 beyond_2_eval <- fetch_survey(surveys$id[9]) %>%
   clean_names()
 
+# inspect
+glimpse(beyond_2_eval)
 
-glimpse(beyond_1_reg)
-glimpse(beyond_2_reg)
+# new variables to identify and
+# select
+beyond_2_eval <- beyond_2_eval %>%
+  mutate(event = "Beyond 2",
+         type = "post_eval") %>%
+  select(response_id,
+         event,
+         type,
+         recorded_date,
+         location_latitude,
+         location_longitude,
+         distribution_channel,
+         email = recipient_email,
+         zip_code = q1_2_1,
+         exceeded_expectations = q2_2_1,
+         knowledgeable_panelists = q2_2_2,
+         culturally_appropriate = q2_2_3,
+         learned_something = q2_2_4,
+         register_again = q2_2_5,
+         personal_connection = q3_2,
+         info_new_to_me = q3_3,
+         event_takeaway_resources = q3_4,
+         suggested_changes_culture = q3_5,
+         other_notes = q3_6,
+         suggested_presenter = q4_2,
+         prioritize_topic_caregiver = q4_3_1,
+         prioritize_topic_positive_psych = q4_3_2,
+         prioritize_topic_finance = q4_3_3,
+         prioritize_topic_self_advocacy = q4_3_4,
+         prioritize_topic_support = q4_3_5,
+         prioritize_topic_survivorship = q4_3_6,
+         prioritize_topic_other = q4_3_7,
+         prioritize_topic_other_text = q4_3_7_text
+  )
+
+# all lowercase email address 
+beyond_2_eval$email <- str_to_lower(beyond_2_eval$email)
+
+# extract email domain 
+beyond_2_eval <- beyond_2_eval %>%
+  mutate(email_domain = str_extract(email, "@.+"),
+         zip_code = as.character(zip_code)) # zip code to character 
+
+write_rds(beyond_2_eval, "data/tidy/beyond_2_eval.rds")
+
+
+# stop here #### 
+
+
+# mapping 
+b1_spatial <- beyond_1_reg %>%
+  select(response_id,
+         location_latitude,
+         location_longitude) %>%
+  filter(location_latitude > 30,
+         location_latitude < 40,
+         location_longitude > -116,
+         location_longitude < -108)
+
+b1_sf <- st_as_sf(b1_spatial,
+                  coords = c("location_longitude", "location_latitude"),
+                  crs = 4326)
+
+b2_spatial <- beyond_2_reg %>%
+  select(response_id,
+         location_latitude,
+         location_longitude) %>%
+  filter(location_latitude > 30,
+         location_latitude < 40,
+         location_longitude > -116,
+         location_longitude < -108)
+
+b2_sf <- st_as_sf(b2_spatial,
+                  coords = c("location_longitude", "location_latitude"),
+                  crs = 4326)
+
+ggplot() +
+  geom_sf(data = az_counties) +
+  geom_sf(data = b1_sf, color = "blue", alpha = .60) +
+  geom_sf(data = b2_sf, color = "red", alpha = .60) +
+  theme_void()
+
+  
+
+
+# views <- tribble(
+#   ~event, ~zoom, ~twitter_live, ~twitter_replay, ~facebook_live, ~fb_reach, ~fb_engagements,
+#   "Mindy Griffith", 21, 21, 28, 2, 204, 41,
+#   "Positive Psychology", 34, NA, NA, 3, 73, 17
+# ) 
+# views <- views %>%
+#   replace(is.na(.), 0)
+#   
+# views$total <- rowSums(views[,c(-1)])
 
 
 
-beyond_1_reg <- beyond_1_reg %>%
-  select(8,9,14,15,19,20)
-
-write_rds(beyond_1_reg, "data/raw/20210426_mindy_griffith_registration.rds")
-
-# select zoom registration survey & inspect
-beyond_2_reg <- fetch_survey(surveys$id[12])
-glimpse(beyond_2_reg)
-
-beyond_2_reg <- beyond_2_reg %>%
-  select(8,9,14,15,"Q1.3_1":"Q4.3")
+# # 
+# 
+# glimpse(beyond_1_reg)
+# glimpse(beyond_2_reg)
+# 
+# 
+# 
+# beyond_1_reg <- beyond_1_reg %>%
+#   select(8,9,14,15,19,20)
+# 
+# write_rds(beyond_1_reg, "data/raw/20210426_mindy_griffith_registration.rds")
+# 
+# # select zoom registration survey & inspect
+# beyond_2_reg <- fetch_survey(surveys$id[12])
+# glimpse(beyond_2_reg)
+# 
+# beyond_2_reg <- beyond_2_reg %>%
+#   select(8,9,14,15,"Q1.3_1":"Q4.3")
 
 # write_rds(beyond_2_reg, "data/raw/20210617_positive_psychology_registration.rds")
 # 

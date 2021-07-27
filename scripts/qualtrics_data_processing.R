@@ -26,10 +26,11 @@ zip_db <- zip_code_db
 bc_1 <- read_rds("data/tidy/beyond_1_pre_survey.rds")
 bc_2 <- read_rds("data/tidy/beyond_2_reg.rds")
 
+# 26 April 2021: mindy griffith ####
 glimpse(bc_1)
 
 # How has cancer impacted your life? 
-bc_1 %>%
+bc1_impact <- bc_1 %>%
   select(starts_with("impact_")) %>%
   mutate(survivor = if_else(impact_survivor == "I am a survivor", 1, 0),
          friend =  if_else(impact_friend == "My friend has or has had cancer", 1, 0),
@@ -39,7 +40,26 @@ bc_1 %>%
          professional =  if_else(impact_professional == "I am a professional who works in cancer control or care", 1, 0)
          ) %>%
   select(!(starts_with("impact_"))) %>%
-  colSums(na.rm = TRUE)
+  colSums(na.rm = TRUE) %>%
+  enframe() %>%
+  arrange(desc(value))
+
+# Which cancer are you diagnosed with? 
+bc_1 %>%
+  select(starts_with("cancer_site")) %>%
+  mutate(breast = if_else(`cancer_site_Breast (female)` == "Breast (female)", 1, 0),
+         prostate = if_else(cancer_site_prostate == "Prostate", 1, 0),
+         `lung and bronchus` = if_else(`cancer_site_lung and bronchus` == "Lung and bronchus", 1, 0),
+         colorectum = if_else(cancer_site_colorectum == "Colorectum", 1, 0),
+         melanoma = if_else(`cancer_site_melanoma of the skin` == "Melanoma of the skin", 1, 0),
+         `urinary bladder` = if_else(`cancer_site_urinary bladder` == "Urinary bladder", 1, 0),
+         pancreas = if_else(cancer_site_pancreas == "Pancreas", 1, 0),
+         `liver and intrahepatic bile duct` = if_else(`cancer_site_liver and intrahepatic bile duct` == "Liver and intrahepatic bile duct", 1, 0)
+         ) %>%
+  select(!(starts_with("cancer_"))) %>%
+  colSums(na.rm = TRUE) %>%
+  enframe() %>%
+  arrange(desc(value))
 
 # Cancer Support Group 
 bc_1 %>%
@@ -56,14 +76,16 @@ bc_1 %>%
   select(starts_with("cancer_survivorship_")) %>%
   mutate(
     prevention = if_else(cancer_survivorship_prevention == "Prevention", 1, 0),
-    detection_screening = if_else(`cancer_survivorship_detection and screening` == "Detection and Screening", 1, 0),
-    recent_dx = if_else(`cancer_survivorship_recent diagnosis` == "Recent diagnosis (acute survivorship)", 1, 0),
-    tx = if_else(cancer_survivorship_treatment == "Treatment (acute survivorship / extended survivorship)", 1, 0),
+    `detection screening` = if_else(`cancer_survivorship_detection and screening` == "Detection and Screening", 1, 0),
+    `recent diagnosis` = if_else(`cancer_survivorship_recent diagnosis` == "Recent diagnosis (acute survivorship)", 1, 0),
+    treatment = if_else(cancer_survivorship_treatment == "Treatment (acute survivorship / extended survivorship)", 1, 0),
     survivorship = if_else(cancer_survivorship_survivorship == "Survivorship (extended survivorship / permanent survivorship)", 1, 0),
-    self_advocacy = if_else(`cancer_survivorship_self advocacy` == "Self-advocacy", 1, 0)
+    `self advocacy` = if_else(`cancer_survivorship_self advocacy` == "Self-advocacy", 1, 0)
   ) %>%
   select(!(starts_with("cancer_"))) %>%
-  colSums(na.rm = TRUE)
+  colSums(na.rm = TRUE) %>%
+  enframe() %>%
+  arrange(desc(value))
 
 # Have you been given a survivorship care plan?
 bc_1 %>%
@@ -71,6 +93,7 @@ bc_1 %>%
   group_by(`survivorship care plan`) %>%
   count()
 
+# 17 June 2021: positive psychology ####
 glimpse(bc_2)
 
 # How has cancer impacted your life? 
@@ -82,10 +105,12 @@ bc_2 %>%
          provider = if_else(`impact_Physician Provider` == "Physician", 1, 0),
          nurse = if_else(impact_Nurse == "Nurse", 1, 0),
          researcher = if_else(impact_Researcher == "Researcher", 1, 0),
-         family_caretaker =  if_else(`impact_Family Caretaker` == "Family/Caretaker", 1, 0)
+         `family caretaker` =  if_else(`impact_Family Caretaker` == "Family/Caretaker", 1, 0)
   ) %>%
   select(!(starts_with("impact_"))) %>%
-  colSums(na.rm = TRUE)
+  colSums(na.rm = TRUE) %>%
+  enframe() %>%
+  arrange(desc(value))
 
 # preferred language 
 bc_2 %>%
@@ -103,14 +128,16 @@ bc_2 %>%
   select(starts_with("cancer_survivorship_")) %>%
   mutate(
     prevention = if_else(cancer_survivorship_prevention == "Prevention", 1, 0),
-    detection_screening = if_else(`cancer_survivorship_detection and screening` == "Detection and Screening", 1, 0),
-    recent_dx = if_else(`cancer_survivorship_recent diagnosis` == "Recent diagnosis (acute survivorship)", 1, 0),
-    tx = if_else(cancer_survivorship_treatment == "Treatment (acute survivorship / extended survivorship)", 1, 0),
+    `detection and screening` = if_else(`cancer_survivorship_detection and screening` == "Detection and Screening", 1, 0),
+    `recent diagnosis` = if_else(`cancer_survivorship_recent diagnosis` == "Recent diagnosis (acute survivorship)", 1, 0),
+    treatment = if_else(cancer_survivorship_treatment == "Treatment (acute survivorship / extended survivorship)", 1, 0),
     survivorship = if_else(cancer_survivorship_survivorship == "Survivorship (extended survivorship / permanent survivorship)", 1, 0),
-    self_advocacy = if_else(`cancer_survivorship_self advocacy` == "Self-advocacy", 1, 0)
+    `self advocacy` = if_else(`cancer_survivorship_self advocacy` == "Self-advocacy", 1, 0)
   ) %>%
   select(!(starts_with("cancer_"))) %>%
-  colSums(na.rm = TRUE)
+  colSums(na.rm = TRUE) %>%
+  enframe() %>%
+  arrange(desc(value))
 
 # have you sought out mental health services?
 bc_2 %>%

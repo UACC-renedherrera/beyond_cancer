@@ -1,0 +1,51 @@
+[[AdvancedFormat]]
+
+
+[[Block:Registration Contact Information]]
+
+
+[[Question:DB]]
+Thank you for your interest in attending Beyond Cancer. Please provide the following information to receive your registration details. Additional information will be sent to the email address you provide. You will be contacted to confirm your attendance and to be administered a COVID-19 Screening questionnaire. All in attendance will be required to wear a face mask while indoors.
+
+
+[[Question:TE:Form]]
+Please fill out the following information:
+[[Choices]]
+First Name
+Last Name
+Email address
+US ZIP Code
+
+
+[[Question:DB]]
+If you would like to receive our email newsletter, then please click here to follow this link https://bit.ly/3twgKkH
+
+
+
+[[PageBreak]]
+
+
+[[Block:COVID-19 Screening]]
+
+
+[[Question:DB]]
+Regardless of your vaccination status, have you experienced any of the symptoms in the list below in the past 48 hours? IMPORTANT: ANSWER “YES” EVEN IF YOU BELIEVE THE SYMPTOM(S) IS BECAUSE OF SOME OTHER MEDICAL CONDITION (FOR EXAMPLE, ANSWER “YES” IF YOU HAVE A RUNNY NOSE BECAUSE OF ALLERGIES).
+- fever or chills
+- cough
+- shortness of breath or difficulty breathing
+- fatigue
+- muscle or body aches
+- headache
+- new loss of taste or smell
+- sore throat
+- congestion or runny nose
+- nausea or vomiting
+- diarrhea
+If you have had any of the above symptoms in the last 48 hours, DO NOT physically return to the workplace until symptoms have been improving for more than 48 hours. If you have a medical condition that causes any of these symptoms and you need access to a CDC facility within the next few days, you will need a waiver from CDC’s Occupational Health Clinic (OHC). To begin the waiver process, please contact your CIO management officer and ask them to request a waiver on your behalf through OHC. When OHC contacts you, please be ready to email medical documentation supporting your waiver request to clinicinfo@cdc.gov. Waivers will only be granted in exigent circumstances and only if it is safe to do so. OHC will not respond to waiver requests made by individuals. Fully vaccinated individuals with symptoms will also require a waiver.
+
+
+[[Question:MC]]
+Please select an answer
+[[Choices]]
+Yes
+No

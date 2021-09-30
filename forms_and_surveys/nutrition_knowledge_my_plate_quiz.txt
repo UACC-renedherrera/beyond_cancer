@@ -1,0 +1,291 @@
+[[AdvancedFormat]]
+
+[[Question:DB]]
+Adapted from USDA MyPlate Quiz https://www.myplate.gov/form/myplate-quiz
+
+[[Question:MC]]
+What are your top 3 healthy eating goals? Select top 3
+[[Choices]]
+To be healthier overall
+Get to a healthy weight
+Maintain a healthy weight
+Increase my energy
+Feel better about myself
+Reduce stress
+Help get my family on track with healthy eating
+Other
+
+[[Question:MC:MultipleAnswer]]
+Which of the following, if any, are preventing you from eating healthy? Select all that apply
+[[Choices]]
+Others in the household do not want to
+No support system(someone to help me stay on track)
+I'm not sure how to
+Costs too much
+Taste and flavor
+Takes too much time
+Inconvenient
+Other
+
+[[Question:MC]]
+How familiar are you with MyPlate?
+[[Choices]]
+Very familiar
+Somewhat familiar
+Not too familiar
+Not familiar at all
+
+[[Question:DB]]
+Now let's look into what you're currently eating.
+
+[[Question:MC]]
+How often do you eat from the Fruit Group?
+[[Choices]]
+Never/rarely 0-2 days per week
+Occasionally 3-5 days per week
+Often/always 6+ days per week
+
+[[Question:MC]]
+How often do you eat from the Vegetable Group?
+[[Choices]]
+Never/rarely 0-2 days per week
+Occasionally 3-5 days per week
+Often/always 6+ days per week
+
+[[Question:MC]]
+How often do you eat dark green vegetables?
+[[Choices]]
+Never/rarely 0-1 day per week
+Occasionally 2-3 days per week
+Often/always 4+ days per week
+
+[[Question:MC]]
+How often do you eat red and orange vegetables?
+[[Choices]]
+Never/rarely 0-1 day per week
+Occasionally 2-3 days per week
+Often/always 4+ days per week
+
+[[Question:MC]]
+How often do you eat beans, peas, and lentils?
+[[Choices]]
+Never/rarely 0-1 day per week
+Occasionally 2-3 days per week
+Often/always 4+ days per week
+
+[[Question:MC]]
+How often do you eat from the Grains Group?
+[[Choices]]
+Never/rarely 0-2 days per week
+Occasionally 3-5 days per week
+Often/always 6+ days per week
+
+[[Question:MC]]
+How often do you eat whole grains?
+[[Choices]]
+Never/rarely 0-1 day per week
+Occasionally 2-3 days per week
+Often/always 4+ days per week
+
+[[Question:MC]]
+How often do you eat from the Protein Foods Group?
+[[Choices]]
+Never/rarely 0-2 days per week
+Occasionally 3-5 days per week
+Often/always 6+ days per week
+
+[[Question:MC]]
+How often do you eat seafood per week?
+[[Choices]]
+Never
+Once per week
+2+ times per week
+I follow a diet that does not include seafood
+
+[[Question:MC]]
+How often do you eat other Protein Foods?
+[[Choices]]
+Never/rarely 0-2 days per week
+Occasionally 3-5 days per week
+Often/always 6+ days per week
+
+[[Question:MC]]
+How often do you eat from the Dairy Group?
+[[Choices]]
+Never/rarely 0-2 days per week
+Occasionally 3-5 days per week
+Often/always 6+ days per week
+
+[[Question:MC]]
+How often do you drink low-fat (1%) or fat-free (0%) dairy milk?
+[[Choices]]
+Never/rarely 0-1 day per week
+Occasionally 2-3 days per week
+Often/always 4+ days per week
+
+[[Question:MC]]
+How often do you drink lactose-free milk or fortified soy beverages (soymilk)?
+[[Choices]]
+Never/rarely 0-1 day per week
+Occasionally 2-3 days per week
+Often/always 4+ days per week
+
+[[Question:MC:MultipleAnswer]]
+What would you like to learn more about? Select all that apply
+[[Choices]]
+Healthy beverage choices
+Healthy snack ideas
+Healthy eating on a budget
+Meal planning
+Food preparation
+Dining out / take out
+Grocery shopping tips
+Kitchen timesavers
+Vegetarian meals
+
+[[Question:MC:MultipleAnswer]]
+Would you be interested in learning more about sodium (salt), saturated fats, and added sugars?  Select all that apply
+[[Choices]]
+Sodium (salt)
+Added sugars
+Saturated fats
+
+[[Question:DB]]
+Adapted from https://www.cdc.gov/physicalactivity/basics/pa-health/physical-activity-and-cancer.html
+
+[[Question:MC:MultipleAnswer]]
+True or false? Regular physical activity can help reduce risk of the following cancers. Select all that are true.
+[[Choices]]
+Bladder
+Breast
+Colon
+Endometrium (innermost lining layer of the uterus)
+Esophagus
+Kidney
+Lung
+Stomach
+
+[[Question:DB]]
+Adapted from Hodges, Michael, Chong Lee, Kent A. Lorenz, and Daniel Cipriani. 2015. “Review of the PE Metrics Cognitive Assessment Tool for Fifth Grade Students.” Biomedical Human Kinetics 7 (1). https://doi.org/10.1515/bhk-2015-0017.
+
+
+[[Question:MC]]
+When you exercise vigorously:
+[[Choices]]
+You start to breathe more slowly
+Your heart keeps a slow, steady rhythm
+It is more difficult to find your pulse
+You increase your pulse
+
+[[Question:MC]]
+Your heart beat creates your pulse, which is best checked at your:
+[[Choices]]
+Wrist
+Ankle
+Chest
+Thumb
+
+[[Question:DB]]
+Adapted from Koniak-Griffin, Deborah, and Mary-Lynn Brecht. 2015. “Awareness of Cardiovascular Disease and Preventive Behaviors Among Overweight Immigrant Latinas.” Journal of Cardiovascular Nursing 30 (5): 447–55. https://doi.org/10.1097/JCN.0000000000000181.
+
+[[Question:MC]]
+True or false: A heart healthy diet includes 6-8 portions of grain per day
+[[Choices]]
+True
+False
+
+[[Question:DB]]
+Adapted from Parmenter, K., and J. Wardle. 1999. “Development of a General Nutrition Knowledge Questionnaire for Adults.” European Journal of Clinical Nutrition 53 (4): 298–308. https://doi.org/10.1038/sj.ejcn.1600726.
+
+
+[[Question:Matrix]]
+Do you think health experts recommend that people should be eating more, the same amount, or less of these foods? (tick one box per food)
+[[Choices]]
+Vegetables
+Sugary foods
+Meat
+Starchy foods
+Fatty foods
+High fiber foods
+Fruit
+Salty foods
+
+[[Answers]]
+More
+Same
+Less
+Not sure
+
+[[Question:MC]]
+How many servings of fruit and vegetables a day do you think experts are advising people to eat? (One serving could be, for example, an apple or a handful of chopped carrots)
+[[Choices]]
+0
+1-2
+3-5
+6+
+
+[[Question:MC]]
+Which fat do experts say is most important for people to cut down on? (tick one)
+[[Choices]]
+Monounsaturated fat
+Polyunsaturated fat
+Saturated fat
+Not sure
+
+[[Question:MC]]
+What version of dairy foods do experts say people should eat? (tick one)
+[[Choices]]
+Full fat
+Lower fat
+Mixture of full fat and lower fat
+Neither, dairy foods should be cut out
+Not sure
+
+[[Question:Matrix]]
+Do you think these are high or low in fiber/roughage? (tick one box per food)
+[[Choices]]
+Cornflakes
+Bananas
+Eggs
+Red meat
+Broccoli
+Nuts
+Fish
+Baked potatoes with skins
+Chicken
+Baked beans
+[[Answers]]
+High
+Low
+Not sure
+
+[[Question:MC]]
+Which of these breads contain the most vitamins and minerals? Choose one
+[[Choices]]
+White
+Brown
+Whole grain
+Not sure
+
+[[Question:MC]]
+Are you aware of any major health problems or diseases that are related to a low intake of fruit and vegetables?
+[[Choices]]
+Yes
+No
+Not sure
+
+[[Question:Matrix]]
+Do you think these help to reduce the chances of getting
+certain kinds of cancer?
+[[Choices]]
+Eating more fiber
+Eating less sugar
+Eating less fruit
+Eating less salt
+Eating more fruit and vegetables
+Eating less preservatives / additives
+
+[[Answers]]
+Yes
+No
+Not sure

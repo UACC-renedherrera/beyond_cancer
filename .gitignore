@@ -61,6 +61,7 @@ GIS/
 *.svg
 *.tiff
 *.qsf
+*.docx
 
 # forms
 forms_data_collection/

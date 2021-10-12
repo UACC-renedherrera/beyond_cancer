@@ -62,6 +62,7 @@ GIS/
 *.tiff
 *.qsf
 *.docx
+#.csv
 
 # forms
 forms_data_collection/

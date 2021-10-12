@@ -7,30 +7,37 @@
 library(here)
 library(tidyverse)
 library(ggthemes)
-library(zipcodeR)
-library(sf)
-library(tigris)
-library(geojson)
-library(knitr)
-library(lubridate)
 
-options(tigris_use_cache = TRUE)
+# library(zipcodeR)
+# library(sf)
+# library(tigris)
+# library(geojson)
+# library(knitr)
+# library(lubridate)
+# 
+# options(tigris_use_cache = TRUE)
+# 
+# # get az county spatial data
+# az_counties <- counties(state = 04)
+# 
+# # get az zip code spatial data 
+# zip_db <- zip_code_db
 
-# get az county spatial data
-az_counties <- counties(state = 04)
-
-# get az zip code spatial data 
-zip_db <- zip_code_db
-
+# read saved data from disk 
 # registration and audience #### 
-bc_1 <- read_rds("data/tidy/beyond_1_pre_survey.rds")
-bc_2 <- read_rds("data/tidy/beyond_2_reg.rds")
+bcs_1_reg <- read_rds(file = "data/tidy/bcs_1_registration.rds")
+bcs_1_pre_survey <- read_rds(file = "data/tidy/bcs_1_pre_event_survey.rds")
+bcs_2_reg <- read_rds(file = "data/tidy/bcs_2_registration.rds")
+bcs_views <- read_rds(file = "data/tidy/bcs_views.rds")
+
+# views 
+bcs_views
 
 # 26 April 2021: mindy griffith ####
-glimpse(bc_1)
+glimpse(bcs_1_pre_survey)
 
 # How has cancer impacted your life? 
-bc1_impact <- bc_1 %>%
+bcs_1_impact <- bcs_1_pre_survey %>%
   select(starts_with("impact_")) %>%
   mutate(survivor = if_else(impact_survivor == "I am a survivor", 1, 0),
          friend =  if_else(impact_friend == "My friend has or has had cancer", 1, 0),
@@ -45,7 +52,7 @@ bc1_impact <- bc_1 %>%
   arrange(desc(value))
 
 # Which cancer are you diagnosed with? 
-bc_1 %>%
+bcs_1_cancer_dx <- bcs_1_pre_survey %>%
   select(starts_with("cancer_site")) %>%
   mutate(breast = if_else(`cancer_site_Breast (female)` == "Breast (female)", 1, 0),
          prostate = if_else(cancer_site_prostate == "Prostate", 1, 0),
@@ -62,17 +69,19 @@ bc_1 %>%
   arrange(desc(value))
 
 # Cancer Support Group 
-bc_1 %>%
+bcs_1_support_group <- bcs_1_pre_survey %>%
   filter(joined_support_group == "Yes") %>%
-  select(support_group_name, support_group_found)
+  select(support_group_name, support_group_found) %>%
+  arrange(support_group_name)
 
-# Cancer Support Group 
-bc_1 %>%
+# Cancer survivor resources
+bcs_1_survivor_resources <- bcs_1_pre_survey %>%
   filter(survivor_resources != is.na(survivor_resources)) %>%
-  select(survivor_resources)
+  select(survivor_resources) %>%
+  arrange(survivor_resources)
 
 # Where are you in your cancer survivorship journey?
-bc_1 %>%
+bcs_1_survivor_journey <- bcs_1_pre_survey %>%
   select(starts_with("cancer_survivorship_")) %>%
   mutate(
     prevention = if_else(cancer_survivorship_prevention == "Prevention", 1, 0),
@@ -88,16 +97,16 @@ bc_1 %>%
   arrange(desc(value))
 
 # Have you been given a survivorship care plan?
-bc_1 %>%
+bcs_1_survivor_care_plan <- bcs_1_pre_survey %>%
   select(`survivorship care plan`) %>%
   group_by(`survivorship care plan`) %>%
   count()
 
 # 17 June 2021: positive psychology ####
-glimpse(bc_2)
+glimpse(bcs_2_reg)
 
 # How has cancer impacted your life? 
-bc_2 %>%
+bcs_2_impact <- bcs_2_reg %>%
   select(starts_with("impact_")) %>%
   mutate(patient =  if_else(`impact_Cancer patient` == "Cancer patient", 1, 0),
          survivor = if_else(impact_survivor == "Cancer survivor", 1, 0),
@@ -113,18 +122,19 @@ bc_2 %>%
   arrange(desc(value))
 
 # preferred language 
-bc_2 %>%
+bcs_2_lang <- bcs_2_reg %>%
   select(preferred_language) %>%
   group_by(preferred_language) %>%
   count()
 
 # what is the most valuable resource for cancer patients and survivors?
-bc_2 %>%
+bcs_2_survivor_resources <- bcs_2_reg %>%
   select(most_valuable_resource) %>%
-  drop_na()
+  drop_na() %>%
+  arrange(most_valuable_resource)
 
 # Where are you in your cancer survivorship journey?
-bc_2 %>%
+bcs_2_survivor_journey <- bcs_2_reg %>%
   select(starts_with("cancer_survivorship_")) %>%
   mutate(
     prevention = if_else(cancer_survivorship_prevention == "Prevention", 1, 0),
@@ -140,14 +150,23 @@ bc_2 %>%
   arrange(desc(value))
 
 # have you sought out mental health services?
-bc_2 %>%
+bcs_2_mental_health_hx <- bcs_2_reg %>%
   select(`mental health treatment`) %>%
   group_by(`mental health treatment`) %>%
   count()
 
 # do you plan to seek out mental health services?
-bc_2 %>%
+bcs_2_mental_health_serv <- bcs_2_reg %>%
   select(`mental health intent`) %>%
   group_by(`mental health intent`) %>%
   count()
 
+
+# save email list from previous registration to disc
+email_list <- full_join(bcs_1_reg, bcs_2_reg) %>%
+  select(email) %>%
+  arrange(email) %>%
+  distinct(email)
+
+email_list %>%
+  write_csv("data/tidy/beyond_cancer_email_list.csv")

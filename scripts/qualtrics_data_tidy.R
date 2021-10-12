@@ -176,6 +176,9 @@ bcs_2_reg <- bcs_2_reg %>%
   mutate(email_domain = str_extract(email, "@.+"),
          zip_code = as.character(zip_code)) # zip code to character 
 
+# inspect
+glimpse(bcs_2_reg)
+
 # Beyond Cancer 17 June 2021 Positive Psychology Evaluation ####
 bcs_2_eval <- fetch_survey(surveys$id[11]) %>%
   clean_names()
@@ -228,6 +231,29 @@ bcs_2_eval <- bcs_2_eval %>%
 # inspect
 glimpse(bcs_2_eval)
 
+# views and engagement 
+# build tibble 
+bcs_views <- tribble(
+  ~event, ~zoom, ~twitter_live, ~twitter_replay, ~facebook_live, ~fb_reach, ~fb_engagements,
+  "Mindy Griffith", 21, 21, 28, 2, 204, 41,
+  "Positive Psychology", 34, NA, NA, 3, 73, 17
+)
+
+# replace NA with 0 for row sum purposes
+bcs_views <- bcs_views %>%
+  replace(is.na(.), 0)
+
+# make the calculations 
+bcs_views$total <- rowSums(bcs_views[,c(-1)])
+
+# inspect 
+glimpse(bcs_views)
+
+# save as RDS 
+write_rds(bcs_1_reg, file = "data/tidy/bcs_1_registration.rds")
+write_rds(bcs_1_pre_survey, file = "data/tidy/bcs_1_pre_event_survey.rds")
+write_rds(bcs_2_reg, file = "data/tidy/bcs_2_registration.rds")
+write_rds(bcs_views, file = "data/tidy/bcs_views.rds")
 
 
 
@@ -513,17 +539,29 @@ ggplot() +
   
 
 
-# views <- tribble(
-#   ~event, ~zoom, ~twitter_live, ~twitter_replay, ~facebook_live, ~fb_reach, ~fb_engagements,
-#   "Mindy Griffith", 21, 21, 28, 2, 204, 41,
-#   "Positive Psychology", 34, NA, NA, 3, 73, 17
-# ) 
-# views <- views %>%
-#   replace(is.na(.), 0)
-#   
-# views$total <- rowSums(views[,c(-1)])
+bcs_views <- tribble(
+  ~event, ~zoom, ~twitter_live, ~twitter_replay, ~facebook_live, ~fb_reach, ~fb_engagements,
+  "Mindy Griffith", 21, 21, 28, 2, 204, 41,
+  "Positive Psychology", 34, NA, NA, 3, 73, 17
+)
+
+bcs_views <- bcs_views %>%
+  replace(is.na(.), 0)
+
+bcs_views$total <- rowSums(bcs_views[,c(-1)])
 
 
+# zip codes for beyond cancer 3 16 Oct Registration 
+bcs_3_zip_codes <- fetch_survey(surveys$id[8]) %>%
+  clean_names() %>%
+  select(in_person = q1_3,
+         zipcode = q1_2_4) %>%
+  arrange(zipcode) %>%
+  mutate(zipcode = as.character(zipcode))
+
+glimpse(bcs_3_zip_codes)
+
+write_rds(bcs_3_zip_codes, "data/tidy/bcs_3_registration_zip_codes.rds")
 
 # # 
 # 
